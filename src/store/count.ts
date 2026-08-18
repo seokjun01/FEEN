@@ -1,29 +1,58 @@
 /* create는 state와 action함수를 포함하는 객체인, store를 생성한다.*/
 import { create } from "zustand";
+import {
+  combine,
+  subscribeWithSelector,
+  persist,
+  createJSONStorage,
+  devtools,
+} from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
 
-type Store = {
-  count: number;
-  actions: {
-    increase: () => void;
-    decrease: () => void;
-  };
-};
+export const useCountStore = create(
+  devtools(
+    persist(
+      subscribeWithSelector(
+        immer(
+          combine({ count: 0 }, (set, get) => ({
+            actions: {
+              increase: () => {
+                set((state) => {
+                  state.count += 1;
+                });
+              },
+              decrease: () => {
+                set((state) => {
+                  state.count -= 1;
+                });
+              },
+            },
+          })),
+        ),
+      ),
+      {
+        name: "countStore",
+        partialize: (store) => ({
+          count: store.count,
+        }),
+        storage: createJSONStorage(() => sessionStorage),
+      },
+    ),
+    {
+      name: "countStore",
+    },
+  ),
+);
 
-export const useCountStore = create<Store>((set, get) => ({
-  count: 0,
-  actions: {
-    increase: () => {
-      set((store) => ({
-        count: store.count + 1,
-      }));
-    },
-    decrease: () => {
-      set((store) => ({
-        count: store.count - 1,
-      }));
-    },
+useCountStore.subscribe(
+  (store) => store.count,
+  (count, prevCount) => {
+    // Listener
+    console.log(count, prevCount);
+    const store = useCountStore.getState();
+    useCountStore.setState((store) => ({}));
   },
-}));
+);
 
 export const useCount = () => {
   const count = useCountStore((store) => store.count);
