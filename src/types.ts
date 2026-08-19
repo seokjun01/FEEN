@@ -1,4 +1,6 @@
 export interface Todo {
-  id: number;
+  id: TodoId;
   content: string;
 }
+
+export type TodoId = string;
