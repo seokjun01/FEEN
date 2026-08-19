@@ -42,7 +42,7 @@ export const useCountStore = create(
       name: "countStore",
     },
   ),
-);
+);  
 
 useCountStore.subscribe(
   (store) => store.count,
