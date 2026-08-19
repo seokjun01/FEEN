@@ -3,32 +3,7 @@
     {
       "id": "1",
       "content": "Todo 1",
-      "isDone": true
-    },
-    {
-      "id": "2",
-      "content": "Todo 2",
-      "isDone": true
-    },
-    {
-      "id": "3",
-      "content": "Todo 3",
       "isDone": false
-    },
-    {
-      "content": "123",
-      "isDone": false,
-      "id": "ABS1JTBQY2k"
-    },
-    {
-      "content": "견과류먹기",
-      "isDone": false,
-      "id": "sF7uXAjxmok"
-    },
-    {
-      "content": "물 먹기",
-      "isDone": false,
-      "id": "87x7jkRaweg"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -1,6 +1,5 @@
 export interface Todo {
-  id: TodoId;
+  id: string;
   content: string;
+  isDone: boolean;
 }
-
-export type TodoId = string;

@@ -18,6 +18,7 @@ export const useTodosStore = create(
             state.todos.push({
               id: String(new Date().getTime()),
               content: content,
+              isDone: false,
             });
           });
         },
