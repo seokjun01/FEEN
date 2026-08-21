@@ -4,11 +4,6 @@
       "content": "가나다",
       "isDone": false,
       "id": "lpJVE7Jk0w4"
-    },
-    {
-      "content": "abc",
-      "isDone": false,
-      "id": "M4sb3bEEwTo"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
