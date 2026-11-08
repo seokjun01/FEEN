@@ -1,4 +1,4 @@
-import {Navigate, Routes, Route } from "react-router";
+import { Navigate, Routes, Route } from "react-router";
 
 import ForgetPasswordPage from "@/pages/forget-password-page";
 import SignInPage from "@/pages/sign-in-page";
@@ -8,20 +8,19 @@ import ProfileDetailPage from "@/pages/profile-detail-page";
 import SignUpPage from "@/pages/sign-up-page";
 import GlobalLayout from "./components/layout/global-layout";
 
-
-
 export default function RootRoute() {
-    return (<Routes>
-
-        <Route element={<GlobalLayout />}>
+  return (
+    <Routes>
+      <Route element={<GlobalLayout />}>
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/forget-password" element={<ForgetPasswordPage />} />
         <Route path="/" element={<IndexPage />} />
         <Route path="/post/:postId" element={<PostDetailPage />} />
         <Route path="/profile/:userId" element={<ProfileDetailPage />} />
-        <Route path="/reset-password"/>
-        <Route path="*" element={<Navigate to={"/"} />}/>
-        </Route>
-    </Routes>);
+        <Route path="/reset-password" />
+        <Route path="*" element={<Navigate to={"/"} />} />
+      </Route>
+    </Routes>
+  );
 }
