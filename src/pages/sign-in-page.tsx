@@ -10,7 +10,11 @@ import { useSignWithInOAuth } from "@/hooks/mutations/use-sigin-in-with-oauth";
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { mutate: signInWithPassowrd } = useSignInWithPassowrd();
+  const { mutate: signInWithPassowrd } = useSignInWithPassowrd({
+    onError: () => {
+      setPassword("");
+    },
+  });
   const { mutate: signInWithOAuth } = useSignWithInOAuth();
 
   const handleSignInWithPasswordClick = () => {
