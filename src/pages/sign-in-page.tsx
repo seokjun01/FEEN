@@ -3,19 +3,33 @@ import { Input } from "@/components/ui/input";
 import { useSignInWithPassowrd } from "@/hooks/mutations/use-sign-in-with-password";
 import { useState } from "react";
 import { Link } from "react-router";
+import { toast } from "sonner";
 
 import githubLogo from "@/assets/github-mark.svg";
 import { useSignWithInOAuth } from "@/hooks/mutations/use-sigin-in-with-oauth";
+import { generateErrorMessage } from "@/lib/error";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { mutate: signInWithPassowrd } = useSignInWithPassowrd({
-    onError: () => {
+    onError: (error) => {
+      const message = generateErrorMessage(error);
+      toast.error(message, {
+        position: "top-center",
+      });
+
       setPassword("");
     },
   });
-  const { mutate: signInWithOAuth } = useSignWithInOAuth();
+  const { mutate: signInWithOAuth } = useSignWithInOAuth({
+    onError: (error) => {
+      const message = generateErrorMessage(error);
+      toast.error(message, {
+        position: "top-center",
+      });
+    },
+  });
 
   const handleSignInWithPasswordClick = () => {
     if (email.trim() === "") return;

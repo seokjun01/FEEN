@@ -1,13 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useSignUp } from "@/hooks/mutations/use-sign-up";
+import { generateErrorMessage } from "@/lib/error";
 import { useState } from "react";
 import { Link } from "react-router";
+import { toast } from "sonner";
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { mutate: signUp } = useSignUp();
+
+  const { mutate: signUp, isPending: isSignUpPending } = useSignUp({
+    onError: (error) => {
+      const message = generateErrorMessage(error);
+      toast.error(message, {
+        position: "top-center",
+      });
+    },
+  });
 
   const handleSignUpClick = () => {
     if (email.trim() === "") return;
@@ -25,6 +35,7 @@ export default function SignUpPage() {
       <div className="flex flex-col gap-2">
         <Input
           value={email}
+          disabled={isSignUpPending}
           onChange={(e) => setEmail(e.target.value)}
           className="py-6"
           type="email"
@@ -32,6 +43,7 @@ export default function SignUpPage() {
         />
         <Input
           value={password}
+          disabled={isSignUpPending}
           onChange={(e) => setPassword(e.target.value)}
           className="py-6"
           type="password"
@@ -39,7 +51,11 @@ export default function SignUpPage() {
         />
       </div>
       <div>
-        <Button onClick={handleSignUpClick} className="w-full">
+        <Button
+          disabled={isSignUpPending}
+          onClick={handleSignUpClick}
+          className="w-full"
+        >
           회원가입
         </Button>
       </div>
